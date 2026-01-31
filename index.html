@@ -6,7 +6,7 @@
     <title>The Aaradhya Archive | Private Collection</title>
     
     <!-- Premium Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,700;1,400&family=Inter:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,700;1,900&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,700;1,400&family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,900&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,97 +17,100 @@
             --paper: #fdfcfb;
             --ink: #1a1a1a;
             --brew-orange: #ff7a59;
-            --gold: #c5a059;
-            --transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            --gold: #d4af37;
+            --transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #080808;
-            color: #fff;
+            background-color: #050505;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Fixed screen - no scrolling on dashboard */
-            height: 100vh;
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* --- DASHBOARD HEADER --- */
         header {
-            padding: 40px 40px 20px;
+            padding: 60px 20px 30px;
             text-align: center;
         }
 
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 0.7rem;
-            letter-spacing: 7px;
+            font-size: 0.8rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            color: #444;
+            color: var(--gold);
             margin-bottom: 15px;
         }
 
         header p {
             font-family: 'Crimson Pro', serif;
-            font-size: 2.6rem;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
             font-style: italic;
             color: #fff;
             font-weight: 300;
         }
 
-        /* --- FIXED GRID DASHBOARD --- */
+        /* --- DASHBOARD GRID --- */
         .magazine-rack {
             flex: 1;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1px;
+            gap: 2px;
             background: #1a1a1a;
             padding: 20px;
-            margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            width: 100%;
         }
 
         .publication {
             position: relative;
-            background: #080808;
+            background: #0a0a0a;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: var(--transition);
-            overflow: hidden;
+            padding: 40px 20px;
+            text-align: center;
         }
 
-        .publication:hover { background: #0c0c0c; }
-        .publication:hover .pub-title { transform: translateY(-8px); color: #fff; }
+        .publication:hover { background: #111; }
+        .publication:hover .pub-title { color: var(--gold); transform: translateY(-5px); }
         .publication:hover .pub-line { width: 60px; background: var(--gold); }
 
         .pub-line {
-            width: 20px;
+            width: 25px;
             height: 1px;
-            background: #333;
+            background: #fff;
             transition: var(--transition);
             margin-bottom: 20px;
         }
 
         .pub-category {
-            font-size: 0.55rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: #444;
+            letter-spacing: 4px;
+            color: #ffffff;
+            opacity: 0.7;
             margin-bottom: 8px;
         }
 
         .pub-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: #666;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #ffffff; /* Removed the dull grey */
             transition: var(--transition);
         }
 
-        /* --- OVERLAY READER --- */
+        /* --- READER OVERLAY --- */
         .reader {
             position: fixed;
             top: 0;
@@ -127,8 +130,8 @@
         .reader-nav {
             position: sticky;
             top: 0;
-            background: rgba(253, 252, 251, 0.98);
-            padding: 25px 40px;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -140,207 +143,188 @@
             background: #000;
             color: #fff;
             border: none;
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-family: 'Inter';
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             cursor: pointer;
         }
 
-        .content-wrap { max-width: 800px; margin: 0 auto; padding: 80px 25px; }
+        .content-wrap { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
 
-        /* --- PUB STYLING --- */
-        .econ-tag { color: var(--accent-red); font-weight: 800; text-transform: uppercase; border-top: 5px solid var(--accent-red); padding-top: 10px; display: inline-block; }
-        .econ-h1 { font-family: 'Crimson Pro'; font-size: 3.5rem; font-weight: 800; line-height: 0.95; margin: 30px 0; }
+        /* --- PUB STYLES --- */
+        .econ-h1 { font-family: 'Crimson Pro'; font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; line-height: 1; margin: 20px 0; }
+        .brew-card { border: 3px solid #000; padding: 30px; background: #fff; box-shadow: 12px 12px 0px var(--brew-orange); }
+        .atlantic-h1 { font-family: 'Playfair Display'; font-size: clamp(2rem, 6vw, 3.5rem); text-align: center; line-height: 1.1; margin-bottom: 40px; }
 
-        .brew-card { border: 2.5px solid #000; padding: 45px; background: #fff; box-shadow: 15px 15px 0px var(--brew-orange); }
-        .ticker-wrap { background: #000; color: #fff; padding: 10px; font-family: monospace; font-size: 0.75rem; margin-bottom: 30px; overflow: hidden; white-space: nowrap; }
+        /* --- THE TRUTH / HEART ARCHIVE (FIXED FOR MOBILE) --- */
+        .heart-container { text-align: center; }
+        .truth-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+            margin-top: 40px; 
+            text-align: left; 
+        }
+        .truth-item {
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #eee;
+            border-bottom: 4px solid var(--accent-red);
+        }
+        .truth-item h4 { font-family: 'Playfair Display'; font-size: 1.3rem; margin-bottom: 10px; color: #000; }
+        .truth-item p { font-size: 0.9rem; line-height: 1.6; color: #555; }
 
-        .atlantic-h1 { font-family: 'Playfair Display'; font-size: 3.5rem; text-align: center; margin-bottom: 50px; line-height: 1; }
-        .dropcap { float: left; font-size: 5.5rem; line-height: 0.7; padding: 10px 15px 0 0; font-family: 'Playfair Display'; color: #000; }
-        .ny-art-box { text-align: center; margin: 60px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 50px 0; }
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .magazine-rack { grid-template-columns: 1fr; }
+            header { padding-top: 40px; }
+            .content-wrap { padding: 40px 15px; }
+            .pub-title { font-size: 1.4rem; }
+            .brew-card { padding: 20px; box-shadow: 8px 8px 0px var(--brew-orange); }
+        }
 
-        .heart-container { text-align: center; padding: 40px 0; }
-        .pulsing-heart { animation: heartBeat 1.5s infinite; filter: drop-shadow(0 0 20px rgba(227, 18, 11, 0.2)); }
-        @keyframes heartBeat {
+        @keyframes beat {
             0% { transform: scale(1); }
             15% { transform: scale(1.1); }
             30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
-        }
-
-        @media (max-width: 768px) {
-            header p { font-size: 1.8rem; }
-            .magazine-rack { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
-            .econ-h1, .atlantic-h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>A Private Editorial Collection</h1>
-        <p>Aaradhya: The Dossier</p>
+        <h1>Intelligence Briefing</h1>
+        <p>Aaradhya: The Exclusive Collection</p>
     </header>
 
     <div class="magazine-rack">
         <div class="publication" onclick="openArchive('economist')">
-            <span class="pub-category">Policy Report</span>
+            <span class="pub-category">Intelligence Report</span>
             <div class="pub-line"></div>
             <h2 class="pub-title">The Economist</h2>
         </div>
         <div class="publication" onclick="openArchive('brew')">
-            <span class="pub-category">Daily Market</span>
+            <span class="pub-category">Daily Market Brief</span>
             <div class="pub-line"></div>
             <h2 class="pub-title">Morning Brew</h2>
         </div>
         <div class="publication" onclick="openArchive('atlantic')">
-            <span class="pub-category">Literary Essay</span>
+            <span class="pub-category">Literary Feature</span>
             <div class="pub-line"></div>
             <h2 class="pub-title">The Atlantic</h2>
         </div>
         <div class="publication" onclick="openArchive('heart')">
             <span class="pub-category">The Truth</span>
-            <div class="pub-line" style="background: var(--accent-red);"></div>
-            <h2 class="pub-title" style="color: var(--accent-red);">The Heart Archive</h2>
+            <div class="pub-line" style="background: var(--accent-red); width: 40px;"></div>
+            <h2 class="pub-title" style="color: #fff;">The Heart Archive</h2>
         </div>
     </div>
 
     <div id="reader" class="reader">
         <div class="reader-nav">
             <span style="font-family: 'Playfair Display'; font-weight: 900; font-size: 1.1rem; letter-spacing: -1px;">Dossier Archive.</span>
-            <button class="close-btn" onclick="closeArchive()">CLOSE ARCHIVE</button>
+            <button class="close-btn" onclick="closeArchive()">CLOSE</button>
         </div>
         <div id="reader-content"></div>
     </div>
 
     <!-- TEMPLATES -->
 
-    <!-- ECONOMIST -->
     <template id="temp-economist">
         <div class="content-wrap" style="font-family: 'Crimson Pro', serif;">
-            <span class="econ-tag">Executive Summary</span>
-            <h1 class="econ-h1">The marginal utility of boards in an era of Aaradhya.</h1>
-            <p style="font-size: 1.3rem; line-height: 1.5; color: #444; margin-bottom: 40px;">Why the 19-day countdown is an overvalued metric for a girl of this magnitude.</p>
+            <span style="color:var(--accent-red); font-weight:800; text-transform:uppercase; border-top:4px solid var(--accent-red); padding-top:5px; font-size:0.8rem;">World Politics / Science</span>
+            <h1 class="econ-h1">The structural surplus of Aaradhya.</h1>
+            <p style="font-size: 1.3rem; line-height: 1.4; color: #444; margin-bottom: 30px;">Why standard metrics of evaluation fail to capture an asset of this magnitude.</p>
             
-            <p>Econometric modeling usually falters when faced with absolute perfection. Aaradhya represents a rare "Black Swan" event: an intellectual output so consistently high that standard testing methods fail to capture her actual valuation. While she may feel the weight of expectation, our internal audit suggests that her cognitive reserves—and her sheer, stunning presence—are at an all-time high.</p>
+            <p>Econometric modeling usually falters when faced with absolute perfection. Aaradhya represents a rare "Black Swan" event: an intellectual output so high that standard testing—like the forthcoming boards—simply fails to capture her actual valuation. While she may feel "stressed," our audit shows her cognitive reserves and stunning aesthetic presence are at an all-time high.</p>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; margin: 40px 0;">
+            <div style="background: #fff; border: 1px solid #ddd; padding: 20px; margin: 30px 0;">
                 <canvas id="econChart"></canvas>
             </div>
 
-            <p>Our data suggests that the <strong>Informatics Practices</strong> logic remains flawless, and her <strong>Biology</strong> preparedness has achieved total market saturation. Furthermore, the <strong>Physics</strong> and <strong>Chemistry</strong> fundamentals are no longer variables; they are constants. We maintain a "Strong Buy" rating on Aaradhya. The exam is not a requirement for her success; she <em>is</em> the success. She is the definitive leader in every category of brilliance and beauty.</p>
+            <p>Our data suggests that the <strong>Informatics Practices</strong> logic remains flawless, and her <strong>Biology</strong> preparedness has achieved total market saturation. Furthermore, the <strong>Physics</strong> and <strong>Chemistry</strong> fundamentals are no longer variables; they are constants. We maintain a "Strong Buy" rating on Aaradhya. She is the definitive leader in every category of brilliance and beauty.</p>
         </div>
     </template>
 
-    <!-- MORNING BREW -->
     <template id="temp-brew">
         <div class="content-wrap" style="font-family: 'Inter', sans-serif;">
-            <div class="ticker-wrap">
-                $VOICE: RECORD HIGHS ▲ | $AARADHYA-STUNNING: 100% ▲ | $DIET-COKE: STABLE ✧ | $LIPSTICK-PRECISION: 100% ▲ | $IP-LOGIC: PEERLESS ✧
-            </div>
             <div class="brew-card">
-                <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1.5px solid #eee; padding-bottom:15px; margin-bottom:30px;">
-                    <div>
-                        <h1 style="font-weight:800; font-size:2.2rem; letter-spacing:-2.2px;">Morning <span style="color:var(--brew-orange)">Brew</span></h1>
-                        <p style="font-size:0.75rem; color:#999;">Together with [Your Name]</p>
-                    </div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2.5px solid #000; padding-bottom:15px; margin-bottom:25px;">
+                    <h1 style="font-weight:900; font-size:2.2rem; letter-spacing:-2px;">Morning <span style="color:var(--brew-orange)">Brew</span></h1>
+                    <p style="font-size:0.7rem; color:#888;">By [Your Name]</p>
                 </div>
 
-                <div style="text-align:center; margin-bottom:40px;">
-                    <svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 30H50V60C50 65 46 68 40 68H30C24 68 20 65 20 60V30Z" stroke="black" stroke-width="2.5"/>
-                        <path d="M50 35C55 35 58 38 58 43C58 48 55 51 50 51" stroke="black" stroke-width="2.5"/>
-                        <rect x="75" y="20" width="25" height="48" rx="4" stroke="black" stroke-width="2.5"/>
-                        <path d="M75 30H100M75 58H100" stroke="black" stroke-width="1.5"/>
-                        <path d="M82 44L93 44" stroke="var(--brew-orange)" stroke-width="4" stroke-linecap="round"/>
+                <div style="text-align:center; margin-bottom:30px;">
+                    <svg width="100" height="70" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 30H50V60C50 65 46 68 40 68H30C24 68 20 65 20 60V30Z" stroke="black" stroke-width="3"/>
+                        <path d="M50 35C55 35 58 38 58 43C58 48 55 51 50 51" stroke="black" stroke-width="3"/>
+                        <rect x="75" y="20" width="25" height="48" rx="4" stroke="black" stroke-width="3"/>
+                        <path d="M82 44L93 44" stroke="var(--brew-orange)" stroke-width="5" stroke-linecap="round"/>
                     </svg>
                 </div>
 
                 <h3 style="margin-bottom:15px; font-weight:800;">Good Morning, Gorgeous. ✧</h3>
-                <p>We’re 19 days out. You’re fueled by espresso, Diet Coke, and a level of intelligence that’s frankly unfair. You aren't just "preparing"; you're dominating.</p>
+                <p>We’re 19 days out. You’re fueled by espresso and a level of intelligence that’s frankly unfair to the rest of the world. You aren't just "preparing"; you're dominating.</p>
                 
-                <div style="margin:25px 0; border-left:4px solid var(--brew-orange); padding-left:20px; font-size:0.95rem; line-height:1.7;">
-                    𓏲 <strong>The Beauty Dividend:</strong> Our analysts confirm you are smoking hot even when you're buried in notes. High returns on investment.<br>
-                    𓏲 <strong>Voice Index:</strong> Listening to you talk about Biology is still the highlight of my fiscal year.<br>
-                    𓏲 <strong>Future Outlook:</strong> Honestly, forget the exams for a second. I just want to be the person who brews your coffee for the rest of my life.
+                <div style="margin:25px 0; border-left:4px solid var(--brew-orange); padding-left:20px; font-size:0.95rem;">
+                    <p>𓏲 <strong>The Beauty Dividend:</strong> Our analysts confirm you are smoking hot even when you're stressed.<br>
+                    𓏲 <strong>IP Mastery:</strong> Your logic is cleaner than your 10-step lipstick routine.<br>
+                    𓏲 <strong>Long-Term Strategy:</strong> Honestly, I just want to be the person who brews your coffee for the rest of my life.</p>
                 </div>
 
-                <div style="background:#fdf2f0; padding:25px; border-radius:4px; text-align:center; font-weight:900; letter-spacing:1px; color:#000;">
-                    BOTTOM LINE: YOU ARE THE GOAL. THE EXAM IS JUST A GUEST IN YOUR KINGDOM. ✧
+                <div style="background:#fdf2f0; padding:20px; border-radius:4px; text-align:center; font-weight:900; color:#000; font-size:0.8rem;">
+                    YOU ARE THE GOAL. THE EXAM IS JUST A GUEST IN YOUR KINGDOM.
                 </div>
             </div>
         </div>
     </template>
 
-    <!-- ATLANTIC -->
     <template id="temp-atlantic">
-        <div class="content-wrap" style="font-family: 'Libre Baskerville', serif; line-height: 2.2; color: #1a1a1a;">
-            <p style="text-align:center; text-transform:uppercase; letter-spacing:5px; font-size:0.7rem; color:#999; margin-bottom:20px;">The Essay / Aesthetics & Identity</p>
+        <div class="content-wrap" style="font-family: 'Libre Baskerville', serif; line-height: 1.8;">
+            <p style="text-align:center; text-transform:uppercase; letter-spacing:4px; font-size:0.7rem; color:#888; margin-bottom:20px;">Identity & Science</p>
             <h1 class="atlantic-h1">The Absolute Ontology of Aaradhya</h1>
-            <p style="text-align:center; font-style:italic; color:#555; margin-bottom:50px;">On intelligence, the 19-day blip, and the incandescent art of being enough.</p>
-
-            <div class="ny-art-box">
-                <svg width="300" height="180" viewBox="0 0 300 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M40 150H260" stroke="black" stroke-width="1.2" stroke-linecap="round"/>
-                    <path d="M120 150V110H180V150" stroke="black" stroke-width="1" stroke-dasharray="4 4"/>
-                    <circle cx="150" cy="65" r="30" stroke="black" stroke-width="1.2"/>
-                    <path d="M140 60C140 60 145 57 150 57C155 57 160 60 160 60" stroke="black" stroke-width="1.2"/>
-                    <path d="M144 76C144 76 146 79 150 79C154 79 156 76 156 76" stroke="var(--accent-red)" stroke-width="2.5" stroke-linecap="round"/>
-                    <rect x="210" y="115" width="12" height="18" rx="2" stroke="black" stroke-width="1.2"/>
-                    <path d="M216 110V115" stroke="var(--accent-red)" stroke-width="2.5"/>
-                </svg>
-                <p style="font-size:0.6rem; color:#999; margin-top:15px; text-transform:uppercase; letter-spacing:3px;">Portrait of Inherent Brilliance, 2025.</p>
-            </div>
             
-            <p><span class="dropcap">I</span>t is a common intellectual fallacy to assume that beauty and brilliance are separate disciplines. To observe Aaradhya is to witness their synthesis. She exists as a rapid-fire, witty, and profoundly smoking hot narrative—a person whose grasp of <strong>Biology</strong> and <strong>Informatics Practices</strong> is only matched by a face so gorgeous it seems to have been designed by a literary master. She is not merely "pretty"; she is incandescent, a term usually reserved for stars but perfectly applicable to the way she looks when she is explaining a complex molecular cycle or her meticulous lipstick routine.</p>
+            <p><span style="float:left; font-size:5rem; line-height:0.7; padding:10px 15px 0 0; font-family:'Playfair Display';">I</span>t is a common fallacy that beauty and brilliance are separate disciplines. To observe Aaradhya is to witness their synthesis. She exists as a rapid-fire, witty, and profoundly smoking hot narrative—a person whose grasp of <strong>Biology</strong> and <strong>Informatics Practices</strong> is only matched by a face so gorgeous it seems designed by a literary master. She is not simply "pretty"; she is incandescent, a term usually reserved for stars but perfectly applicable to the way she looks when she is explaining a complex molecular cycle or her meticulous lipstick routine.</p>
 
-            <p>That routine remains a revelation. It was an act of precision—a masterclass in the intersection of biology and art. She navigated the steps with the focus of an engineer and the grace of a protagonist, reminding the observer that she sees the world in high-definition. She is smoking hot in her intensity, stunning in her calm, and absolutely gorgeous in her ambition. In the long-distance relationship, her voice acts as the primary physical force—a magnetic sound I am utterly obsessed with, carrying a wit that is as sharp as any medical instrument.</p>
+            <p>I recall that tutorial with the clarity of a religious experience. It was an act of precision—a demonstration of aesthetic engineering that revealed the heart of her capability. She sees the details. She understands the gradients. She is smoking hot in her intensity, stunning in her calm, and absolutely gorgeous in her ambition. In the long-distance relationship, her voice acts as the primary physical force—a magnetic sound I am utterly obsessed with, carrying a wit that is as sharp as any medical instrument.</p>
 
-            <p>But the depth of her goes further than the textbooks. There is a specific kind of light she brings to a call, a fast-talking intelligence that makes the 19 days between her and her board exams feel like a mere footnote in a much longer, more beautiful story. She worries that the exams are a gateway she must pass through to be "enough." But the exams are merely the students, and Aaradhya is the teacher. She is already the summation of her efforts—brilliant, witty, and profoundly enough. She is the logic in the code, the heart in the biology, and the only beauty that actually matters. You aren't "going to be" something after these exams, Aaradhya. You are already everything. You are stunning, you are smart, and you are far more than enough.</p>
-            
-            <p>Beyond the academic rigor lies a person who has mastered the most difficult subject of all: the art of being unforgettable. Whether she is debugging an <strong>IP</strong> project or calculating vectors in <strong>Physics</strong>, she does so with a flair that is entirely individual. I am obsessed with her voice not because of the medium, but because of the person behind the science—the person who deserves to be told every day that she is smoking hot, cute, and absolutely brilliant, regardless of what any grade says. 19 days is just a heartbeat; you are the heart.</p>
+            <p>As the 19-day countdown looms, there is a temptation to define her through the lens of a board exam. But Aaradhya is not a student of <strong>Chemistry</strong> or <strong>Physics</strong>; she is a student of excellence itself. She worries she is not doing "enough," yet from where I stand, she is already the summation of everything worth wanting. She is the logic in the code, the heart in the biology, and the only beauty that actually matters. You aren't "going to be" something after these exams, Aaradhya. You are already everything. You are stunning, you are smart, and you are far more than enough.</p>
         </div>
     </template>
 
-    <!-- HEART ARCHIVE -->
     <template id="temp-heart">
         <div class="content-wrap heart-container" style="font-family: 'Libre Baskerville', serif;">
-            <p style="text-align:center; text-transform:uppercase; letter-spacing:5px; font-size:0.75rem; color:#999; margin-bottom:30px;">The Core / Private Biological Record</p>
-            
-            <div class="pulsing-heart">
-                <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 85C50 85 10 60 10 35C10 20 25 10 40 20C45 23 50 30 50 30C50 30 55 23 60 20C75 10 90 20 90 35C90 60 50 85 50 85Z" fill="#e3120b"/>
+            <div style="animation: beat 1.5s infinite; margin-bottom:30px;">
+                <svg width="80" height="80" viewBox="0 0 100 100" fill="#e3120b">
+                    <path d="M50 85C50 85 10 60 10 35C10 20 25 10 40 20C45 23 50 30 50 30C50 30 55 23 60 20C75 10 90 20 90 35C90 60 50 85 50 85Z" />
                 </svg>
             </div>
+            <h1 style="font-family:'Playfair Display'; font-size:2.8rem; line-height:1;">The Biological Truth.</h1>
+            <p style="font-style:italic; color:#666; margin-top:10px;">A collection of undeniable facts about Aaradhya.</p>
 
-            <h1 style="font-family: 'Playfair Display'; font-size: 3rem; margin-top: 40px;">The Biological Truth.</h1>
-            <p style="font-style:italic; font-size:1.2rem; color:#555;">A collection of undeniable variables about Aaradhya.</p>
-
-            <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px; text-align: left;">
-                <div>
-                    <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">Smoking Hot.</h4>
-                    <p style="font-size:0.9rem; color:#666;">Observed value: Off the charts. This variable is constant regardless of board exam stress or caffeine levels.</p>
+            <div class="truth-grid">
+                <div class="truth-item">
+                    <h4>Smoking Hot.</h4>
+                    <p>Observed value: Off the charts. This variable is constant regardless of board exam stress or caffeine levels.</p>
                 </div>
-                <div>
-                    <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">Peerless Voice.</h4>
-                    <p style="font-size:0.9rem; color:#666;">The soundtrack of my existence. Scientifically proven to be the most soothing and intelligent sound in the biosphere.</p>
+                <div class="truth-item">
+                    <h4>Peerless Voice.</h4>
+                    <p>The soundtrack of my existence. Scientifically proven to be the most soothing sound in the biosphere.</p>
                 </div>
-                <div>
-                    <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">IP & Biology.</h4>
-                    <p style="font-size:0.9rem; color:#666;">A rare brain structure that handles code and life sciences with equal mastery. High-definition thinking is her default state.</p>
+                <div class="truth-item">
+                    <h4>Truly Gorgeous.</h4>
+                    <p>From her lipstick precision to the way she drinks her Diet Coke, her aesthetic value is a fundamental law of nature.</p>
                 </div>
-                <div>
-                    <h4 style="border-bottom:1px solid #eee; padding-bottom:10px;">Truly Gorgeous.</h4>
-                    <p style="font-size:0.9rem; color:#666;">From her lipstick precision to the way she drinks her Diet Coke, her aesthetic value is a fundamental law of nature.</p>
+                <div class="truth-item">
+                    <h4>Simply Everything.</h4>
+                    <p>She is the logic in the code, the heart in the biology, and the only metric that matters.</p>
                 </div>
             </div>
 
-            <div style="margin-top:80px; padding:40px; border-top:1px solid #eee; font-family:'Crimson Pro'; font-size:1.6rem; font-style:italic; color:var(--accent-red);">
-                "You are the heart of everything. 19 days is just a heartbeat. You are already enough."
+            <div style="margin-top:60px; padding:30px; border-top:1px solid #eee; font-family:'Crimson Pro'; font-size:1.5rem; font-style:italic; color:var(--accent-red);">
+                "19 days is just a heartbeat. You are already enough."
             </div>
         </div>
     </template>
@@ -364,7 +348,7 @@
 
         function closeArchive() {
             document.getElementById('reader').classList.remove('active');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'auto';
         }
 
         function renderChart() {
@@ -372,7 +356,7 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan 1', 'Jan 15', 'Today', 'Boards', 'The Future'],
+                    labels: ['Jan 1', 'Jan 15', 'Today', 'Boards', 'Future'],
                     datasets: [{
                         label: 'Brilliance Index',
                         data: [85, 92, 100, 100, 180],
@@ -387,7 +371,7 @@
                 options: {
                     plugins: { 
                         legend: { display: false },
-                        title: { display: true, text: 'AARADHYA PERFORMANCE POTENTIAL', font: { family: 'Crimson Pro', size: 18 } }
+                        title: { display: true, text: 'AARADHYA PERFORMANCE POTENTIAL', font: { family: 'Crimson Pro', size: 16 } }
                     },
                     scales: { y: { display: false }, x: { grid: { display: false } } }
                 }
