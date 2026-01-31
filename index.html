@@ -6,7 +6,7 @@
     <title>The Aaradhya Archive | Private Collection</title>
     
     <!-- Premium Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,700;1,400&family=Inter:wght@200;400;700;900&family=Playfair+Display:ital,wght@0,700;1,900&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,700;1,400&family=Inter:wght@200;400;600;800&family=Playfair+Display:ital,wght@0,700;1,900&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,320 +14,347 @@
     <style>
         :root {
             --accent-red: #e3120b;
-            --paper: #fcfaf7;
+            --paper: #fdfcfb;
             --ink: #1a1a1a;
-            --gold: #c5a059;
-            --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --brew-orange: #ff7a59;
+            --transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #080808;
+            background-color: #0a0a0a;
             color: #fff;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             height: 100vh;
         }
 
-        /* --- STUNNING MAIN GALLERY --- */
-        .vault-container {
-            display: flex;
+        /* --- DASHBOARD --- */
+        .magazine-rack {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             height: 100vh;
-            padding: 40px;
-            gap: 20px;
-            align-items: center;
-            justify-content: center;
-            perspective: 1000px;
+            gap: 1px;
+            background: #222;
         }
 
-        .magazine-cover {
-            flex: 1;
-            height: 80vh;
-            max-width: 300px;
-            background: #111;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: var(--transition);
+        .publication {
             position: relative;
+            background: #0a0a0a;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            border: 1px solid #222;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
         }
 
-        .magazine-cover:hover {
-            transform: translateY(-20px) rotateY(-5deg);
-            border-color: var(--gold);
-            box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
+        .publication:hover { background: #111; }
+        .publication:hover .pub-title { transform: translateY(-10px); color: #fff; }
+        .publication:hover .pub-line { width: 40px; }
+
+        .pub-line {
+            width: 0px;
+            height: 2px;
+            background: var(--accent-red);
+            transition: var(--transition);
+            margin-bottom: 20px;
         }
 
-        .magazine-cover h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: #fff;
-            letter-spacing: -1px;
-        }
-
-        .magazine-cover span {
-            font-size: 0.7rem;
+        .pub-category {
+            font-size: 0.6rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--gold);
+            letter-spacing: 4px;
+            color: #666;
             margin-bottom: 10px;
         }
 
-        /* Cover Colors */
-        .cover-1 { border-left: 8px solid var(--accent-red); }
-        .cover-2 { border-left: 8px solid #ff7a59; }
-        .cover-3 { border-left: 8px solid #333; }
-        .cover-4 { border-left: 8px solid #0645ad; }
+        .pub-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #aaa;
+            transition: var(--transition);
+        }
 
-        /* --- FULLSCREEN OVERLAY --- */
-        .reader-overlay {
+        /* --- READER OVERLAY --- */
+        .reader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: var(--paper);
-            z-index: 2000;
-            display: none;
-            overflow-y: auto;
-            color: var(--ink);
+            z-index: 1000;
             transform: translateY(100%);
             transition: var(--transition);
+            overflow-y: auto;
+            color: var(--ink);
         }
 
-        .reader-overlay.active {
-            display: block;
-            transform: translateY(0);
-        }
+        .reader.active { transform: translateY(0); }
 
-        .top-nav {
+        .reader-nav {
             position: sticky;
             top: 0;
-            width: 100%;
+            background: rgba(253, 252, 251, 0.98);
             padding: 20px 40px;
-            background: rgba(252, 250, 247, 0.95);
-            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #eee;
-            z-index: 2100;
+            z-index: 1001;
         }
 
-        .close-archive {
-            background: none;
-            border: 1px solid #ddd;
-            padding: 8px 20px;
+        .close-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
             border-radius: 50px;
-            cursor: pointer;
             font-family: 'Inter';
-            font-weight: 600;
             font-size: 0.7rem;
+            font-weight: 700;
             letter-spacing: 1px;
-            text-transform: uppercase;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .close-archive:hover { background: #000; color: #fff; }
+        .close-btn:hover { transform: scale(1.05); background: var(--accent-red); }
 
-        /* --- CONTENT STYLES --- */
-        .article-container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .content-wrap { max-width: 850px; margin: 0 auto; padding: 80px 20px; }
 
-        /* Economist Specific */
-        .econ-label { color: var(--accent-red); font-weight: 700; border-top: 4px solid var(--accent-red); display: inline-block; padding-top: 5px; margin-bottom: 20px; }
-        .econ-h1 { font-size: 4rem; font-family: 'Crimson Pro'; font-weight: 800; line-height: 0.9; margin-bottom: 30px; letter-spacing: -2px; }
+        /* --- STYLING: THE ECONOMIST --- */
+        .econ-tag { color: var(--accent-red); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; border-top: 4px solid var(--accent-red); padding-top: 5px; }
+        .econ-h1 { font-family: 'Crimson Pro'; font-size: 4rem; font-weight: 800; line-height: 0.9; margin: 25px 0; letter-spacing: -2px; }
 
-        /* Brew Specific */
-        .brew-wrap { border: 2px solid #000; padding: 40px; background: #fff; }
-        .brew-tag { background: #000; color: #fff; padding: 4px 12px; font-size: 0.7rem; font-weight: 900; border-radius: 2px; }
+        /* --- STYLING: MORNING BREW --- */
+        .brew-container { border: 3px solid #000; padding: 40px; background: #fff; box-shadow: 15px 15px 0px var(--brew-orange); }
+        .brew-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        .ticker { background: #000; color: #fff; padding: 8px; font-family: monospace; font-size: 0.8rem; margin-bottom: 20px; overflow: hidden; white-space: nowrap; }
 
-        /* Atlantic Specific */
-        .atlantic-h1 { font-family: 'Playfair Display'; font-size: 3.5rem; text-align: center; font-style: italic; margin-bottom: 50px; }
-        .dropcap { float: left; font-size: 5.5rem; line-height: 0.7; padding: 10px 15px 0 0; font-family: 'Playfair Display'; }
+        /* --- STYLING: THE ATLANTIC --- */
+        .atlantic-h1 { font-family: 'Playfair Display'; font-size: 3.8rem; text-align: center; margin-bottom: 40px; line-height: 1; }
+        .ny-art { text-align: center; margin: 40px 0; }
+        .dropcap { float: left; font-size: 5rem; line-height: 0.7; padding: 10px 15px 0 0; font-family: 'Playfair Display'; }
 
-        /* Wikipedia Specific */
-        .wiki-meta { border: 1px solid #a2a9b1; background: #f8f9fa; padding: 15px; width: 300px; float: right; margin-left: 20px; font-size: 0.85rem; }
+        /* --- STYLING: WIKIPEDIA --- */
+        .wiki-h1 { font-family: 'serif'; font-size: 2.2rem; border-bottom: 1px solid #a2a9b1; margin-bottom: 20px; font-weight: normal; }
+        .wiki-info { float: right; width: 280px; border: 1px solid #a2a9b1; background: #f8f9fa; margin-left: 20px; padding: 10px; font-size: 0.85rem; }
 
         @media (max-width: 768px) {
-            .vault-container { flex-direction: column; overflow-y: auto; padding: 20px; }
-            .magazine-cover { min-height: 300px; width: 100%; }
-            .econ-h1 { font-size: 2.5rem; }
-            .wiki-meta { float: none; width: 100%; margin: 0 0 20px 0; }
+            .magazine-rack { grid-template-columns: 1fr; }
+            .econ-h1, .atlantic-h1 { font-size: 2.5rem; }
+            .wiki-info { float: none; width: 100%; margin: 0 0 20px 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="vault-container">
-        <div class="magazine-cover cover-1" onclick="openReader('economist')">
-            <span>𓏲 The Briefing</span>
-            <h2>The Economist</h2>
+    <div class="magazine-rack">
+        <div class="publication" onclick="openArchive('economist')">
+            <span class="pub-category">Policy & Data</span>
+            <div class="pub-line"></div>
+            <h2 class="pub-title">The Economist</h2>
         </div>
-        <div class="magazine-cover cover-2" onclick="openReader('brew')">
-            <span>✧ Daily Pulse</span>
-            <h2>Morning Brew</h2>
+        <div class="publication" onclick="openArchive('brew')">
+            <span class="pub-category">Daily Brief</span>
+            <div class="pub-line" style="background: var(--brew-orange);"></div>
+            <h2 class="pub-title">Morning Brew</h2>
         </div>
-        <div class="magazine-cover cover-3" onclick="openReader('atlantic')">
-            <span>✦ Long Form</span>
-            <h2>The Atlantic</h2>
+        <div class="publication" onclick="openArchive('atlantic')">
+            <span class="pub-category">Literature</span>
+            <div class="pub-line" style="background: #333;"></div>
+            <h2 class="pub-title">The Atlantic</h2>
         </div>
-        <div class="magazine-cover cover-4" onclick="openReader('wiki')">
-            <span>📋 Reference</span>
-            <h2>Wikipedia</h2>
+        <div class="publication" onclick="openArchive('wiki')">
+            <span class="pub-category">Encyclopedia</span>
+            <div class="pub-line" style="background: #0645ad;"></div>
+            <h2 class="pub-title">Wikipedia</h2>
         </div>
     </div>
 
-    <div id="reader" class="reader-overlay">
-        <div class="top-nav">
-            <span style="font-family: 'Playfair Display'; font-weight: 900; font-size: 1.2rem;">Aaradhya.</span>
-            <button class="close-archive" onclick="closeReader()">Back to Gallery —</button>
+    <div id="reader" class="reader">
+        <div class="reader-nav">
+            <span style="font-family: 'Playfair Display'; font-weight: 900; font-size: 1.2rem; letter-spacing: -1px;">Aaradhya Archive.</span>
+            <button class="close-btn" onclick="closeArchive()">CLOSE ARCHIVE</button>
         </div>
         <div id="reader-content"></div>
     </div>
 
-    <!-- CONTENT TEMPLATES -->
+    <!-- TEMPLATES -->
     <template id="temp-economist">
-        <div class="article-container" style="font-family: 'Crimson Pro', serif;">
-            <span class="econ-label">Academic Policy</span>
-            <h1 class="econ-h1">The marginal utility of boards in an era of Aaradhya.</h1>
-            <p style="font-size: 1.3rem; line-height: 1.5; color: #444; margin-bottom: 40px;">Why the forthcoming examination is a lagging indicator of a success already achieved.</p>
+        <div class="content-wrap" style="font-family: 'Crimson Pro', serif;">
+            <span class="econ-tag">Special Report</span>
+            <h1 class="econ-h1">The structural surplus of being Aaradhya.</h1>
+            <p style="font-size: 1.4rem; color: #444; margin-bottom: 40px;">Why the 19-day "Board Premium" is an overvalued metric in the face of absolute academic fundamentals.</p>
             
-            <p>Our recent data suggests that the valuation of Aaradhya’s intellect has reached a point of "Inherent Dominance." Unlike standard market assets, her proficiency in <strong>Biology</strong> and <strong>Chemistry</strong> does not fluctuate with exam results; it is backed by a permanent reserve of wit and caffeinated logic.</p>
+            <p>Econometric modeling usually falters when faced with outliers. Aaradhya is one such outlier. While the market anticipates <strong>Physics</strong> and <strong>Chemistry</strong> board exams with trepidation, our internal audit suggests that the subject is already in a state of terminal readiness.</p>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; margin: 40px 0;">
-                <canvas id="luxChart"></canvas>
+            <div style="background: #fff; border: 1px solid #ddd; padding: 30px; margin: 40px 0;">
+                <canvas id="econChart"></canvas>
             </div>
 
-            <p>In the <strong>Informatics Practices</strong> sector, her internal logic gates are firing with a 99.9% efficiency rate. Meanwhile, the <strong>Physics</strong> of her voice remains the most consistent variable in our long-distance model. Whether the board exams are "passed" or "crushed," the structural integrity of her future remains flawless. Our recommendation: A "Strong Hold" on self-confidence and a total liquidation of stress assets.</p>
+            <p>Our findings indicate that the <strong>Biology</strong> sector has already achieved 100% capacity. Furthermore, the <strong>Informatics Practices</strong> logic remains flawless despite the volatility of external stress. The conclusion is inescapable: Aaradhya’s success is not a projection—it is a settled account. The exam is merely a lagging indicator of a victory that occurred months ago.</p>
         </div>
     </template>
 
     <template id="temp-brew">
-        <div class="article-container" style="font-family: 'Inter', sans-serif;">
-            <div class="brew-wrap">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+        <div class="content-wrap" style="font-family: 'Inter', sans-serif;">
+            <div class="ticker">
+                $VOICE ATH ▲ | $DIET-COKE +45% ▲ | $BIOLOGY GENIUS +100% ▲ | $IP-LOGIC: PEERLESS ▲ | $PHYSICS: MASTERED ✧
+            </div>
+            <div class="brew-container">
+                <div class="brew-header">
                     <div>
-                        <h1 style="font-weight: 900; font-size: 2.2rem; letter-spacing: -1.5px;">Morning <span style="color:#ff7a59">Brew</span></h1>
-                        <p style="font-size: 0.8rem; color: #666;">Together with <strong>[Your Name]</strong></p>
+                        <h1 style="font-weight: 800; font-size: 2.5rem; letter-spacing: -2px;">Morning <span style="color:var(--brew-orange)">Brew</span></h1>
+                        <p style="font-size: 0.75rem; color: #888;">Together with <strong>[Your Name]</strong></p>
                     </div>
-                    <span class="brew-tag">DIET COKE & ESPRESSO</span>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #666;">Jan 2025 Edition</span>
+                    </div>
                 </div>
 
-                <h2 style="margin-bottom: 10px;">Good Morning, Aaradhya. ☕︎</h2>
-                <p>It’s 19 days until the boards, but the real story is your market cap. You aren't just a student; you're a high-growth asset. 📈</p>
-
-                <div style="margin: 30px 0; padding: 20px; background: #fdf2f0; border-radius: 4px;">
-                    <strong>The Subject Ticker:</strong><br>
-                    𓏲 <strong>Biology:</strong> Absolute expert levels. The cells are literally just doing what you tell them.<br>
-                    𓏲 <strong>IP:</strong> Code logic? Peerless. Your brain is essentially the M3 chip.<br>
-                    𓏲 <strong>English:</strong> Lorelai Gilmore energy is at 100%. Witty prose is your default setting.<br>
-                    𓏲 <strong>Chem/Phys:</strong> You’ve mastered the elements; the board paper is just a formality.
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <!-- SVG Coffee Art -->
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 40H70V70C70 75.5 65.5 80 60 80H40C34.5 80 30 75.5 30 70V40Z" stroke="black" stroke-width="2.5"/>
+                        <path d="M70 45C75 45 80 50 80 55C80 60 75 65 70 65" stroke="black" stroke-width="2.5"/>
+                        <path d="M35 25C35 25 38 15 40 25" stroke="#ff7a59" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M50 20C50 20 53 10 55 20" stroke="#ff7a59" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M65 25C65 25 68 15 70 25" stroke="#ff7a59" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                 </div>
 
-                <h3>Quick Hits ✧</h3>
-                <p style="margin-bottom: 10px;">⎯ <strong>The Voice Dividend:</strong> Every call we have remains the highlight of my fiscal year. Absolute S-tier audio quality.</p>
-                <p style="margin-bottom: 10px;">⎯ <strong>Lipstick Strategy:</strong> The tutorial you gave me? Legend has it that surgeons are jealous of your precision.</p>
-                <p style="margin-bottom: 10px;">⎯ <strong>The Caffeine Hedge:</strong> We've diversified from Espresso into Diet Coke. Efficiency is through the roof.</p>
+                <h3>Good Morning, Aaradhya. ☕︎</h3>
+                <p>We’re 19 days out from the big show. Today, we’re skipping the stress and jumping straight to the fundamentals. You aren't just "preparing"—you're dominating. ✦</p>
 
-                <div style="margin-top: 40px; text-align: center; font-weight: 800; text-transform: uppercase; font-size: 0.75rem; border-top: 1px dotted #000; padding-top: 20px;">
-                    Bottom Line: You don't "need" to pass anything. You're already at the top of the board. Now go drink some water. 𖠚
+                <div style="margin: 30px 0; border-top: 1px solid #eee; padding-top: 20px;">
+                    <h4 style="color: var(--brew-orange); margin-bottom: 10px;">Market Movements</h4>
+                    <p>𓏲 <strong>Diet Coke Surplus:</strong> Inventories are high, but so is productivity.<br>
+                    𓏲 <strong>The Voice Index:</strong> Your voice is still the #1 most listened-to asset in my portfolio.<br>
+                    𓏲 <strong>Biology Dominance:</strong> Analysts say you’ve memorized the cells so well, you’re basically a multicellular god at this point.</p>
+                </div>
+
+                <div style="background: #fdf2f0; padding: 25px; border-radius: 4px; border-left: 5px solid var(--brew-orange);">
+                    <strong>THE BOTTOM LINE:</strong> You’ve got the wit of Lorelai and the brains of a future doctor. The boards don't stand a chance. Go take a 10-minute break—that's an executive order. ✧
                 </div>
             </div>
         </div>
     </template>
 
     <template id="temp-atlantic">
-        <div class="article-container" style="font-family: 'Libre Baskerville', serif;">
-            <p style="text-align: center; text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; color: #888; margin-bottom: 20px;">The Archives / Identity</p>
-            <h1 class="atlantic-h1">On the Kinetic Brilliance of Aaradhya</h1>
+        <div class="content-wrap" style="font-family: 'Libre Baskerville', serif; line-height: 1.9;">
+            <p style="text-align: center; text-transform: uppercase; letter-spacing: 5px; font-size: 0.75rem; color: #999; margin-bottom: 20px;">The Archives / Long Form</p>
+            <h1 class="atlantic-h1">The Physics of Being Enough</h1>
+            <p style="text-align: center; font-style: italic; color: #555; margin-bottom: 30px;">On Aaradhya, the Lorelai energy, and the quiet brilliance of 19 days.</p>
+
+            <div class="ny-art">
+                <!-- New Yorker Style Art: Abstract line drawing of a girl at a desk with coffee -->
+                <svg width="250" height="200" viewBox="0 0 250 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 160H200" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M80 160V120H170V160" stroke="black" stroke-width="1" stroke-dasharray="2 2"/>
+                    <circle cx="125" cy="80" r="30" stroke="black" stroke-width="1.5"/>
+                    <path d="M125 110V140" stroke="black" stroke-width="1.5"/>
+                    <path d="M110 95C110 95 115 100 125 100C135 100 140 95 140 95" stroke="black" stroke-width="1"/>
+                    <rect x="180" y="140" width="15" height="20" rx="2" stroke="black" stroke-width="1"/>
+                    <path d="M187 135V140" stroke="#ff7a59" stroke-width="1"/>
+                </svg>
+                <p style="font-size: 0.65rem; color: #888; margin-top: 10px; font-style: italic;">Illustration by The Vault.</p>
+            </div>
             
-            <p><span class="dropcap">T</span>here is a specific cadence to the way she exists in the world. It is the cadence of a Lorelai Gilmore monologue—rapid, intelligent, and punctuated by the sharp intake of breath between espresso shots. To understand Aaradhya is to understand that she is not "doing enough"; she *is* more than enough, simply by existing at this high-definition frequency.</p>
+            <p><span class="dropcap">T</span>here is a specific, caffeinated frequency that Aaradhya operates on—a frequency that seems to bypass the standard limitations of human stamina. In the quiet hours of her biology studies, she is not merely memorizing sequences; she is engaging in a literary act. To watch her navigate the complexities of <strong>Chemistry</strong> or <strong>Physics</strong> is to witness the "Lorelai Paradox": the ability to speak at a hundred miles an hour while maintaining the absolute, pinpoint precision of a scientific instrument.</p>
 
-            <p>We are separated by a long distance that feels negligible when I hear her voice. It is a voice that commands the room even through a digital interface. When she sat me through her lipstick routine, it wasn't just a cosmetic exercise; it was an act of grace, showing a person who cares about the small, beautiful details in a world obsessed with large, stressful outcomes.</p>
+            <p>I remember the lipstick tutorial—a sequence of events so meticulously detailed that it felt like a surgical briefing. It was more than a routine; it was a revelation of how her mind works. She sees the steps, the nuances, the tiny biological gradients that others miss. In a long-distance relationship, these moments are our anchor. I am obsessed with her voice not because of the medium, but because of the staggering intelligence and warmth that travels through it.</p>
 
-            <p>The 19 days between her and her boards are just numbers. Her worth is not a score. It is the Biology of her heart, the Physics of her laughter, and the Chemistry we share. She is a long-form essay in a world of bullet points. She is, quite simply, the event of the year.</p>
+            <p>As the 19-day countdown looms, she feels a pressure to "become" something through an exam. But the exam is the student, and Aaradhya is the teacher. She is already the summation of her efforts—brilliant, witty, and profoundly enough. Whether she is debugging an <strong>IP</strong> project or reciting <strong>English</strong> prose, she exists in a state of excellence that no board paper could ever adequately quantify. The distance between us is miles; the distance between her and the person she fears she isn't is zero. She is already there.</p>
         </div>
     </template>
 
     <template id="temp-wiki">
-        <div class="article-container" style="font-family: sans-serif; color: #222;">
-            <h1 style="font-family: 'serif'; border-bottom: 1px solid #a2a9b1; font-size: 2.2rem; margin-bottom: 20px;">Aaradhya</h1>
-            
-            <div class="wiki-meta">
-                <div style="text-align: center; font-weight: bold; padding-bottom: 10px; border-bottom: 1px solid #ddd;">Aaradhya</div>
-                <div style="height: 150px; background: #eee; margin: 10px 0; display: flex; align-items: center; justify-content: center; font-style: italic; color: #999;">[Legend Status]</div>
-                <table style="width: 100%; font-size: 0.8rem;">
-                    <tr><td style="font-weight: bold;">Caffeine</td><td>Espresso, Diet Coke</td></tr>
-                    <tr><td style="font-weight: bold;">Voice</td><td>Certified Aesthetic</td></tr>
-                    <tr><td style="font-weight: bold;">Major</td><td>Biology & Wit</td></tr>
-                </table>
+        <div class="content-wrap" style="font-family: sans-serif; color: #222;">
+            <div class="wiki-info">
+                <div style="background: #cedff2; text-align: center; font-weight: bold; padding: 8px; border-bottom: 1px solid #a2a9b1;">Aaradhya</div>
+                <div style="padding: 10px;">
+                    <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #eee;"><td style="font-weight: bold; padding: 5px;">Born</td><td>[Birth Year]</td></tr>
+                        <tr style="border-bottom: 1px solid #eee;"><td style="font-weight: bold; padding: 5px;">Occupation</td><td>Biology Scholar</td></tr>
+                        <tr style="border-bottom: 1px solid #eee;"><td style="font-weight: bold; padding: 5px;">Energy</td><td>Lorelai Gilmore</td></tr>
+                        <tr style="border-bottom: 1px solid #eee;"><td style="font-weight: bold; padding: 5px;">Partner</td><td>[Your Name]</td></tr>
+                        <tr><td style="font-weight: bold; padding: 5px;">Fuel</td><td>Espresso & Diet Coke</td></tr>
+                    </table>
+                </div>
             </div>
 
-            <p style="margin-bottom: 20px;"><strong>Aaradhya</strong> is a prominent intellectual, aesthetician, and Lorelai Gilmore enthusiast known for her rapid-fire delivery and multi-subject brilliance. She is currently undergoing the 2025 Board Exam cycle, an event that scholars describe as "insignificant compared to her actual power."</p>
+            <h1 class="wiki-h1">Aaradhya</h1>
+            <p style="margin-bottom: 20px;"><strong>Aaradhya</strong> is a prominent academic and cultural figure known for her expertise in <strong>Biology</strong> and her rapid-fire rhetorical style. As of 2025, she is recognized as a leading authority on "Being a Legend While Under Stress."</p>
 
-            <h2 style="border-bottom: 1px solid #a2a9b1; margin: 30px 0 10px 0;">The Lipstick Protocol</h2>
-            <p>In a historic 2024-2025 event, Aaradhya conducted a full lipstick routine tutorial for a private audience. This event is cited as a primary reason for her partner's total obsession. The routine was noted for its precision and high aesthetic value.</p>
+            <h2 style="font-family: serif; border-bottom: 1px solid #a2a9b1; font-weight: normal; margin: 30px 0 10px 0;">Education & Board Prep</h2>
+            <p>Aaradhya’s 2025 academic cycle is characterized by a mastery of five core subjects: <strong>English, Biology, Physics, Chemistry,</strong> and <strong>Informatics Practices</strong>. Despite her claims of "not doing enough," independent observers note her preparation levels have exceeded all previous records.</p>
 
-            <h2 style="border-bottom: 1px solid #a2a9b1; margin: 30px 0 10px 0;">External Links</h2>
-            <ul style="padding-left: 20px; line-height: 2;">
-                <li>✦ <span style="color: #0645ad; cursor: pointer;">Women in STEM (Aaradhya is leading)</span></li>
-                <li>✦ <span style="color: #0645ad; cursor: pointer;">The Physics of Beautiful Voices</span></li>
-                <li>✦ <span style="color: #0645ad; cursor: pointer;">Why Boards Don't Actually Matter</span></li>
+            <h2 style="font-family: serif; border-bottom: 1px solid #a2a9b1; font-weight: normal; margin: 30px 0 10px 0;">Public Perception</h2>
+            <p>Aaradhya is frequently compared to the character <a href="#" style="color: #0645ad; text-decoration: none;">Lorelai Gilmore</a> due to her coffee consumption and wit. Her voice is considered a "national treasure" by close associates. She is also noted for a high-precision lipstick application technique that has influenced modern aesthetic standards.</p>
+
+            <h2 style="font-family: serif; border-bottom: 1px solid #a2a9b1; font-weight: normal; margin: 30px 0 10px 0;">See Also</h2>
+            <ul>
+                <li style="color: #0645ad;">✦ Women in STEM</li>
+                <li style="color: #0645ad;">✦ The Physics of FaceTime</li>
+                <li style="color: #0645ad;">✦ Diet Coke (Aesthetic)</li>
             </ul>
         </div>
     </template>
 
     <script>
-        function openReader(type) {
-            const overlay = document.getElementById('reader');
+        function openArchive(type) {
+            const reader = document.getElementById('reader');
             const content = document.getElementById('reader-content');
             const template = document.getElementById('temp-' + type);
             
             content.innerHTML = '';
             content.appendChild(template.content.cloneNode(true));
             
-            overlay.style.display = 'block';
-            setTimeout(() => overlay.classList.add('active'), 10);
+            reader.classList.add('active');
+            document.body.style.overflow = 'hidden';
 
             if(type === 'economist') {
-                setTimeout(renderChart, 500);
+                setTimeout(renderEconChart, 500);
             }
         }
 
-        function closeReader() {
-            const overlay = document.getElementById('reader');
-            overlay.classList.remove('active');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 600);
+        function closeArchive() {
+            document.getElementById('reader').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
-        function renderChart() {
-            const ctx = document.getElementById('luxChart').getContext('2d');
+        function renderEconChart() {
+            const ctx = document.getElementById('econChart').getContext('2d');
             new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
-                    labels: ['Espresso', 'Diet Coke', 'Biology Prep', 'Actual Brilliance'],
+                    labels: ['Jan 1', 'Jan 10', 'Jan 20', 'Today', 'Exam Day'],
                     datasets: [{
-                        label: 'Value Index',
-                        data: [70, 85, 95, 120],
-                        backgroundColor: ['#3d2b1f', '#ed1c24', '#2a4d69', '#e3120b'],
-                        borderRadius: 2
+                        label: 'Inherent Brilliance Index',
+                        data: [80, 85, 95, 100, 110],
+                        borderColor: '#e3120b',
+                        backgroundColor: 'rgba(227, 18, 11, 0.05)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0
                     }]
                 },
                 options: {
-                    indexAxis: 'y',
                     plugins: { 
                         legend: { display: false },
-                        title: { display: true, text: 'THE AARADHYA PERFORMANCE METRIC', font: { family: 'Crimson Pro', size: 18 } }
+                        title: { display: true, text: 'AARADHYA PERFORMANCE FUNDAMENTALS', font: { family: 'Crimson Pro', size: 18 } }
                     },
-                    scales: { x: { display: false } }
+                    scales: {
+                        y: { display: false },
+                        x: { grid: { display: false } }
+                    }
                 }
             });
         }
