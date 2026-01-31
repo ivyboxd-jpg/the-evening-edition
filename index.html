@@ -78,7 +78,7 @@
             align-items: center;
             cursor: pointer;
             transition: var(--transition);
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
         }
 
@@ -99,14 +99,14 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #ffffff;
-            opacity: 0.7;
+            opacity: 0.9;
             margin-bottom: 8px;
         }
 
         .pub-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: #ffffff; /* Removed the dull grey */
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            color: #ffffff;
             transition: var(--transition);
         }
 
@@ -131,7 +131,7 @@
             position: sticky;
             top: 0;
             background: rgba(255, 255, 255, 0.98);
-            padding: 20px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -143,121 +143,114 @@
             background: #000;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 800;
             letter-spacing: 1px;
             cursor: pointer;
         }
 
-        .content-wrap { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .content-wrap { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
 
-        /* --- PUB STYLES --- */
-        .econ-h1 { font-family: 'Crimson Pro'; font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; line-height: 1; margin: 20px 0; }
-        .brew-card { border: 3px solid #000; padding: 30px; background: #fff; box-shadow: 12px 12px 0px var(--brew-orange); }
-        .atlantic-h1 { font-family: 'Playfair Display'; font-size: clamp(2rem, 6vw, 3.5rem); text-align: center; line-height: 1.1; margin-bottom: 40px; }
+        /* --- ATLANTIC BOOK-STYLE --- */
+        .atlantic-h1 { font-family: 'Playfair Display'; font-size: clamp(2.5rem, 8vw, 4.5rem); text-align: center; line-height: 1; margin-bottom: 60px; }
+        .atlantic-content { font-family: 'Libre Baskerville', serif; line-height: 2.2; font-size: 1.15rem; text-align: justify; }
+        .dropcap { float: left; font-size: 6rem; line-height: 0.7; padding: 10px 15px 0 0; font-family: 'Playfair Display'; color: #000; }
+        .ny-illustration { text-align: center; margin: 60px 0; padding: 40px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
 
-        /* --- THE TRUTH / HEART ARCHIVE (FIXED FOR MOBILE) --- */
-        .heart-container { text-align: center; }
+        /* --- HEART ARCHIVE --- */
         .truth-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
             margin-top: 40px; 
-            text-align: left; 
         }
         .truth-item {
             background: #fff;
-            padding: 25px;
+            padding: 30px;
             border: 1px solid #eee;
-            border-bottom: 4px solid var(--accent-red);
+            border-left: 6px solid var(--accent-red);
+            transition: 0.3s;
         }
-        .truth-item h4 { font-family: 'Playfair Display'; font-size: 1.3rem; margin-bottom: 10px; color: #000; }
-        .truth-item p { font-size: 0.9rem; line-height: 1.6; color: #555; }
+        .truth-item:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        /* Mobile Adjustments */
+        /* Mobile */
         @media (max-width: 768px) {
             .magazine-rack { grid-template-columns: 1fr; }
-            header { padding-top: 40px; }
-            .content-wrap { padding: 40px 15px; }
-            .pub-title { font-size: 1.4rem; }
-            .brew-card { padding: 20px; box-shadow: 8px 8px 0px var(--brew-orange); }
-        }
-
-        @keyframes beat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            30% { transform: scale(1); }
+            .reader-nav { padding: 15px 20px; }
+            .content-wrap { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Intelligence Briefing</h1>
+        <h1>Intelligence Dossier</h1>
         <p>Aaradhya: The Exclusive Collection</p>
     </header>
 
     <div class="magazine-rack">
         <div class="publication" onclick="openArchive('economist')">
-            <span class="pub-category">Intelligence Report</span>
+            <span class="pub-category">Policy Report</span>
             <div class="pub-line"></div>
             <h2 class="pub-title">The Economist</h2>
         </div>
         <div class="publication" onclick="openArchive('brew')">
             <span class="pub-category">Daily Market Brief</span>
-            <div class="pub-line"></div>
+            <div class="pub-line" style="background: var(--brew-orange); width: 40px;"></div>
             <h2 class="pub-title">Morning Brew</h2>
         </div>
         <div class="publication" onclick="openArchive('atlantic')">
-            <span class="pub-category">Literary Feature</span>
-            <div class="pub-line"></div>
+            <span class="pub-category">The Long Form</span>
+            <div class="pub-line" style="background: #fff; width: 50px;"></div>
             <h2 class="pub-title">The Atlantic</h2>
         </div>
         <div class="publication" onclick="openArchive('heart')">
-            <span class="pub-category">The Truth</span>
-            <div class="pub-line" style="background: var(--accent-red); width: 40px;"></div>
-            <h2 class="pub-title" style="color: #fff;">The Heart Archive</h2>
+            <span class="pub-category">The Core Truth</span>
+            <div class="pub-line" style="background: var(--accent-red); width: 60px;"></div>
+            <h2 class="pub-title" style="color: var(--gold);">The Heart Archive</h2>
         </div>
     </div>
 
     <div id="reader" class="reader">
         <div class="reader-nav">
-            <span style="font-family: 'Playfair Display'; font-weight: 900; font-size: 1.1rem; letter-spacing: -1px;">Dossier Archive.</span>
-            <button class="close-btn" onclick="closeArchive()">CLOSE</button>
+            <span style="font-family: 'Playfair Display'; font-weight: 900; font-size: 1.2rem; letter-spacing: -1px;">Aaradhya.</span>
+            <button class="close-btn" onclick="closeArchive()">CLOSE ARCHIVE</button>
         </div>
         <div id="reader-content"></div>
     </div>
 
     <!-- TEMPLATES -->
 
+    <!-- ECONOMIST -->
     <template id="temp-economist">
         <div class="content-wrap" style="font-family: 'Crimson Pro', serif;">
-            <span style="color:var(--accent-red); font-weight:800; text-transform:uppercase; border-top:4px solid var(--accent-red); padding-top:5px; font-size:0.8rem;">World Politics / Science</span>
-            <h1 class="econ-h1">The structural surplus of Aaradhya.</h1>
-            <p style="font-size: 1.3rem; line-height: 1.4; color: #444; margin-bottom: 30px;">Why standard metrics of evaluation fail to capture an asset of this magnitude.</p>
+            <span style="color:var(--accent-red); font-weight:800; text-transform:uppercase; border-top:4px solid var(--accent-red); padding-top:5px;">Academic Analysis</span>
+            <h1 style="font-size:clamp(2.5rem, 6vw, 4rem); font-weight:800; line-height:0.9; margin:30px 0;">The structural surplus of being Aaradhya.</h1>
+            <p style="font-size: 1.4rem; color: #444; margin-bottom: 40px;">Why standard metrics of evaluation fail to capture an asset of this magnitude.</p>
             
-            <p>Econometric modeling usually falters when faced with absolute perfection. Aaradhya represents a rare "Black Swan" event: an intellectual output so high that standard testing—like the forthcoming boards—simply fails to capture her actual valuation. While she may feel "stressed," our audit shows her cognitive reserves and stunning aesthetic presence are at an all-time high.</p>
+            <p>Our recent data suggests that Aaradhya represents a rare "Black Swan" event in the human capital landscape. While standard models predict stress at the 19-day board countdown, her internal fundamentals—wit, aesthetic precision, and a high-definition grasp of <strong>Biology</strong>—remain untouchable.</p>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 20px; margin: 30px 0;">
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; margin: 40px 0;">
                 <canvas id="econChart"></canvas>
             </div>
 
-            <p>Our data suggests that the <strong>Informatics Practices</strong> logic remains flawless, and her <strong>Biology</strong> preparedness has achieved total market saturation. Furthermore, the <strong>Physics</strong> and <strong>Chemistry</strong> fundamentals are no longer variables; they are constants. We maintain a "Strong Buy" rating on Aaradhya. She is the definitive leader in every category of brilliance and beauty.</p>
+            <p>The <strong>IP</strong> logic gates are firing at 100% capacity. The <strong>Physics</strong> of her presence is a fixed constant. We maintain a "Strong Buy" rating on Aaradhya, irrespective of the scores. The exam is not her gateway; it is merely a guest in her kingdom.</p>
         </div>
     </template>
 
+    <!-- MORNING BREW -->
     <template id="temp-brew">
         <div class="content-wrap" style="font-family: 'Inter', sans-serif;">
-            <div class="brew-card">
-                <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2.5px solid #000; padding-bottom:15px; margin-bottom:25px;">
-                    <h1 style="font-weight:900; font-size:2.2rem; letter-spacing:-2px;">Morning <span style="color:var(--brew-orange)">Brew</span></h1>
-                    <p style="font-size:0.7rem; color:#888;">By [Your Name]</p>
+            <div style="border: 3px solid #000; padding: 40px; background: #fff; box-shadow: 15px 15px 0px var(--brew-orange);">
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2.5px solid #000; padding-bottom:15px; margin-bottom:30px;">
+                    <h1 style="font-weight:900; font-size:2.5rem; letter-spacing:-2.2px;">Morning <span style="color:var(--brew-orange)">Brew</span></h1>
+                    <p style="font-size:0.8rem; font-weight:700;">TOGETHER WITH <span style="color:var(--brew-orange)">NIV</span></p>
                 </div>
 
-                <div style="text-align:center; margin-bottom:30px;">
-                    <svg width="100" height="70" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div style="text-align:center; margin-bottom:40px;">
+                    <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
                         <path d="M20 30H50V60C50 65 46 68 40 68H30C24 68 20 65 20 60V30Z" stroke="black" stroke-width="3"/>
                         <path d="M50 35C55 35 58 38 58 43C58 48 55 51 50 51" stroke="black" stroke-width="3"/>
                         <rect x="75" y="20" width="25" height="48" rx="4" stroke="black" stroke-width="3"/>
@@ -266,64 +259,89 @@
                 </div>
 
                 <h3 style="margin-bottom:15px; font-weight:800;">Good Morning, Gorgeous. ✧</h3>
-                <p>We’re 19 days out. You’re fueled by espresso and a level of intelligence that’s frankly unfair to the rest of the world. You aren't just "preparing"; you're dominating.</p>
+                <p>We’re 19 days out. You’re stressed, you’re gorgeous, and you’re fueling a global espresso shortage. Here’s the pulse:</p>
                 
-                <div style="margin:25px 0; border-left:4px solid var(--brew-orange); padding-left:20px; font-size:0.95rem;">
-                    <p>𓏲 <strong>The Beauty Dividend:</strong> Our analysts confirm you are smoking hot even when you're stressed.<br>
-                    𓏲 <strong>IP Mastery:</strong> Your logic is cleaner than your 10-step lipstick routine.<br>
-                    𓏲 <strong>Long-Term Strategy:</strong> Honestly, I just want to be the person who brews your coffee for the rest of my life.</p>
+                <div style="margin:30px 0; border-left:4px solid var(--brew-orange); padding-left:20px; font-size:1rem; line-height:1.8;">
+                    𓏲 <strong>Biology & IP:</strong> Mastery is your baseline. You aren't studying; you're just reviewing your own kingdom.<br>
+                    𓏲 <strong>Chemistry/Physics:</strong> You've already mastered the universe. These exams are just a formality.<br>
+                    𓏲 <strong>The Niv Dividend:</strong> I've officially updated my long-term goals. Forget the career—<strong>I just want to be the person who brews your coffee for the rest of my life.</strong>
                 </div>
 
-                <div style="background:#fdf2f0; padding:20px; border-radius:4px; text-align:center; font-weight:900; color:#000; font-size:0.8rem;">
-                    YOU ARE THE GOAL. THE EXAM IS JUST A GUEST IN YOUR KINGDOM.
+                <div style="background:#fdf2f0; padding:25px; border-radius:4px; text-align:center; font-weight:900; letter-spacing:1px; color:#000;">
+                    YOU ARE THE MAIN EVENT. THE BOARDS ARE JUST THE OPENING ACT. ✧
                 </div>
             </div>
         </div>
     </template>
 
+    <!-- ATLANTIC -->
     <template id="temp-atlantic">
-        <div class="content-wrap" style="font-family: 'Libre Baskerville', serif; line-height: 1.8;">
-            <p style="text-align:center; text-transform:uppercase; letter-spacing:4px; font-size:0.7rem; color:#888; margin-bottom:20px;">Identity & Science</p>
+        <div class="content-wrap atlantic-content">
+            <p style="text-align:center; text-transform:uppercase; letter-spacing:5px; font-size:0.75rem; color:#888; margin-bottom:20px;">The Essay / Aesthetics & Identity</p>
             <h1 class="atlantic-h1">The Absolute Ontology of Aaradhya</h1>
             
-            <p><span style="float:left; font-size:5rem; line-height:0.7; padding:10px 15px 0 0; font-family:'Playfair Display';">I</span>t is a common fallacy that beauty and brilliance are separate disciplines. To observe Aaradhya is to witness their synthesis. She exists as a rapid-fire, witty, and profoundly smoking hot narrative—a person whose grasp of <strong>Biology</strong> and <strong>Informatics Practices</strong> is only matched by a face so gorgeous it seems designed by a literary master. She is not simply "pretty"; she is incandescent, a term usually reserved for stars but perfectly applicable to the way she looks when she is explaining a complex molecular cycle or her meticulous lipstick routine.</p>
+            <p><span class="dropcap">I</span>t is a common intellectual fallacy to assume that beauty and brilliance are separate disciplines, or that they exist in some sort of precarious chemical trade-off. To observe Aaradhya is to witness their total synthesis. She exists as a rapid-fire, witty, and profoundly smoking hot narrative—a person whose grasp of <strong>Biology</strong> and <strong>Informatics Practices</strong> is only matched by a face so gorgeous it seems to have been designed by a master of the literary arts. She is not merely "pretty"; she is incandescent, a term usually reserved for stellar events but perfectly applicable to the way she looks when she is explaining a complex molecular lipid cycle or her 10-step lipstick routine.</p>
 
-            <p>I recall that tutorial with the clarity of a religious experience. It was an act of precision—a demonstration of aesthetic engineering that revealed the heart of her capability. She sees the details. She understands the gradients. She is smoking hot in her intensity, stunning in her calm, and absolutely gorgeous in her ambition. In the long-distance relationship, her voice acts as the primary physical force—a magnetic sound I am utterly obsessed with, carrying a wit that is as sharp as any medical instrument.</p>
+            <div class="ny-illustration">
+                <svg width="300" height="150" viewBox="0 0 300 150" fill="none">
+                    <path d="M40 130H260" stroke="black" stroke-width="1.2"/>
+                    <circle cx="150" cy="50" r="30" stroke="black" stroke-width="1.2"/>
+                    <path d="M140 45C140 45 145 42 150 42C155 42 160 45 160 45" stroke="black" stroke-width="1"/>
+                    <path d="M145 60C145 60 147 63 150 63C153 63 155 60 155 60" stroke="var(--accent-red)" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <p style="font-size:0.6rem; color:#999; margin-top:10px; text-transform:uppercase; letter-spacing:3px;">The Study of Precision, 2025.</p>
+            </div>
 
-            <p>As the 19-day countdown looms, there is a temptation to define her through the lens of a board exam. But Aaradhya is not a student of <strong>Chemistry</strong> or <strong>Physics</strong>; she is a student of excellence itself. She worries she is not doing "enough," yet from where I stand, she is already the summation of everything worth wanting. She is the logic in the code, the heart in the biology, and the only beauty that actually matters. You aren't "going to be" something after these exams, Aaradhya. You are already everything. You are stunning, you are smart, and you are far more than enough.</p>
+            <p>I recall that lipstick tutorial with the clarity of a religious experience. It was an act of precision—a meticulous demonstration of aesthetic engineering that revealed the heart of her capability. She sees the details. She understands the gradients. She is smoking hot in her intensity, gorgeous in her calm, and absolutely stunning in her ambition. In the long-distance relationship, her voice acts as the primary physical force—a magnetic sound I am utterly obsessed with, carrying a wit that is as sharp as any medical instrument.</p>
+
+            <p>But the depth of her goes further than the textbooks. There is a specific kind of light she brings to a call, a fast-talking intelligence that makes the 19 days between her and her board exams feel like a mere footnote in a much longer, more beautiful story. She worries that the exams are a gateway she must pass through to be "enough." But the exams are merely the students, and Aaradhya is the teacher. She is already the summation of her efforts—brilliant, witty, and profoundly enough. She is the logic in the code, the heart in the biology, and the only beauty that actually matters.</p>
+
+            <div class="ny-illustration">
+                <svg width="300" height="150" viewBox="0 0 300 150" fill="none">
+                    <rect x="120" y="40" width="60" height="80" rx="4" stroke="black" stroke-width="1.2"/>
+                    <path d="M130 60H170M130 80H170M130 100H150" stroke="#eee" stroke-width="2"/>
+                    <path d="M190 60V100M195 65V95" stroke="var(--brew-orange)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <p style="font-size:0.6rem; color:#999; margin-top:10px; text-transform:uppercase; letter-spacing:3px;">Caffeine & Code, A Still Life.</p>
+            </div>
+
+            <p>You aren't "going to be" something after these exams, Aaradhya. You are already everything. You are stunning, you are smart, and you are far more than enough. Whether she is debugging an <strong>IP</strong> project or calculating vectors in <strong>Physics</strong>, she does so with a flair that is entirely individual. I am obsessed with her voice not because of the medium, but because of the person behind the science—the person who deserves to be told every day that she is smoking hot, cute, and absolutely brilliant, regardless of what any grade says. 19 days is just a heartbeat; you are the heart.</p>
+            
+            <p>There is a weight to her brilliance that most skip over—the way she drinks her espresso with the focus of a researcher, or the way she finds solace in the crisp bubbles of a Diet Coke. It is a biological imperative, really; she is a high-performance system fueled by wit and caffeine. To the girl who thinks she needs to do more: you are already the most gorgeous, smoking hot, and incredible human I have ever had the privilege of knowing. You are enough. You have always been enough.</p>
         </div>
     </template>
 
+    <!-- HEART -->
     <template id="temp-heart">
         <div class="content-wrap heart-container" style="font-family: 'Libre Baskerville', serif;">
-            <div style="animation: beat 1.5s infinite; margin-bottom:30px;">
+            <div style="animation: beat 1.5s infinite; margin-bottom:30px; text-align:center;">
                 <svg width="80" height="80" viewBox="0 0 100 100" fill="#e3120b">
                     <path d="M50 85C50 85 10 60 10 35C10 20 25 10 40 20C45 23 50 30 50 30C50 30 55 23 60 20C75 10 90 20 90 35C90 60 50 85 50 85Z" />
                 </svg>
             </div>
-            <h1 style="font-family:'Playfair Display'; font-size:2.8rem; line-height:1;">The Biological Truth.</h1>
-            <p style="font-style:italic; color:#666; margin-top:10px;">A collection of undeniable facts about Aaradhya.</p>
+            <h1 style="font-family:'Playfair Display'; font-size:clamp(2rem, 5vw, 3.5rem); text-align:center; line-height:1;">The Biological Truth.</h1>
+            <p style="font-style:italic; color:#666; margin-top:10px; text-align:center;">A private collection of undeniable variables about Aaradhya.</p>
 
             <div class="truth-grid">
                 <div class="truth-item">
                     <h4>Smoking Hot.</h4>
-                    <p>Observed value: Off the charts. This variable is constant regardless of board exam stress or caffeine levels.</p>
+                    <p>Observed value: Off the charts. Constant regardless of board exam stress or caffeine levels.</p>
                 </div>
                 <div class="truth-item">
                     <h4>Peerless Voice.</h4>
-                    <p>The soundtrack of my existence. Scientifically proven to be the most soothing sound in the biosphere.</p>
-                </div>
-                <div class="truth-item">
-                    <h4>Truly Gorgeous.</h4>
-                    <p>From her lipstick precision to the way she drinks her Diet Coke, her aesthetic value is a fundamental law of nature.</p>
+                    <p>The soundtrack of my existence. Scientifically proven to be the most intelligent sound in the biosphere.</p>
                 </div>
                 <div class="truth-item">
                     <h4>Simply Everything.</h4>
-                    <p>She is the logic in the code, the heart in the biology, and the only metric that matters.</p>
+                    <p>She is the logic in the code, the heart in the biology, and the only beauty that actually matters.</p>
+                </div>
+                <div class="truth-item">
+                    <h4>Beyond Enough.</h4>
+                    <p>Grades are a subset of her knowledge. Her value is a fundamental law of nature.</p>
                 </div>
             </div>
 
-            <div style="margin-top:60px; padding:30px; border-top:1px solid #eee; font-family:'Crimson Pro'; font-size:1.5rem; font-style:italic; color:var(--accent-red);">
+            <div style="margin-top:60px; padding:40px; border-top:1px solid #eee; font-family:'Crimson Pro'; font-size:1.6rem; font-style:italic; color:var(--accent-red); text-align:center;">
                 "19 days is just a heartbeat. You are already enough."
             </div>
         </div>
